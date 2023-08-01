@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSearchParams, useLocation, Link } from 'react-router-dom';
 import { clearAllLocalStorageCache } from './helpers';
+import Pagination from './Pagination';
 
 function SearchResults({
   searchResultsEmpty,
@@ -18,7 +19,7 @@ function SearchResults({
 
   useEffect(() => {
     doFetch();
-  }, [location]);
+  }, [location, currentPage]);
 
   const doFetch = async () => {
     try {
@@ -73,16 +74,16 @@ function SearchResults({
   const fetchData = async (arrayOfFetches, arrayOfCachedObjects) => {
     const response = await Promise.all(arrayOfFetches);
     const data = await Promise.all(
-      response
-        .map(async (object) => {
-          let objectJson = await object.json();
-          localStorage.setItem(objectJson.objectID, JSON.stringify(objectJson));
-          return objectJson;
-        })
-        .filter(async (object) => 'objectID' in object) // Filter out badly formed data
+      response.map(async (object) => {
+        let objectJson = await object.json();
+        localStorage.setItem(objectJson.objectID, JSON.stringify(objectJson));
+        return objectJson;
+      })
     );
 
-    const dataSorted = data.sort((a, b) => b.objectEndDate - a.objectEndDate);
+    const dataSorted = data
+      .filter((object) => 'objectID' in object) // Filter out badly formed data
+      .sort((a, b) => b.objectEndDate - a.objectEndDate);
 
     setSearchResultsEmpty(false);
     setSearchResults([...dataSorted, ...arrayOfCachedObjects]);
@@ -133,6 +134,12 @@ function SearchResults({
 
   return (
     <section className="resultsContainer">
+      <Pagination
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+        totalPages={totalPages}
+      />
+
       {loading && <div className="resultsLoader"></div>}
 
       {!loading && searchResults.length
