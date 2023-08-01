@@ -47,8 +47,6 @@ function SearchResults({
         }
       });
 
-      console.log({ arrayOfFetches, arrayOfCachedObjects });
-
       try {
         const response = await Promise.all(arrayOfFetches);
         const data = await Promise.all(
@@ -62,16 +60,12 @@ function SearchResults({
             return objectJson;
           })
         );
-        const dataFlatSorted = data
-          // .flat()
-          .sort((a, b) => b.objectEndDate - a.objectEndDate);
-
-        console.log({ dataFlatSorted });
+        const dataFlatSorted = data.sort(
+          (a, b) => b.objectEndDate - a.objectEndDate
+        );
 
         setSearchResultsEmpty(false);
         setSearchResults([...dataFlatSorted, ...arrayOfCachedObjects]);
-
-        // sort(a,b => b.objectEndDate - a.objectEndDate)
       } catch {
         throw Error('Promise failed');
       } finally {

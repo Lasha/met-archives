@@ -45,7 +45,6 @@ const SearchForm = ({ setSearchResultsEmpty, setLoading }) => {
       departmentId
     );
     setQueryString(newQueryString);
-    console.log({ newQueryString });
   }, [searchTerm, isOnView, hasImages, departmentId]);
 
   const handleSubmit = (event) => {
