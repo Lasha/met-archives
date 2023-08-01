@@ -43,6 +43,5 @@ export const parseQueryString = () => {
 };
 
 export const clearAllLocalStorageCache = async () => {
-  debugger;
   return await localStorage.clear();
 };

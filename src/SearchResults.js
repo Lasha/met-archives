@@ -39,7 +39,7 @@ function SearchResults({
         return;
       }
 
-      responseJson.objectIDs.splice(0, 15).map((objectID) => {
+      responseJson.objectIDs.splice(0, 50).map((objectID) => {
         if (localStorage.getItem(objectID)) {
           arrayOfCachedObjects.push(JSON.parse(localStorage.getItem(objectID)));
         } else {
@@ -62,12 +62,15 @@ function SearchResults({
   const fetchData = async (arrayOfFetches, arrayOfCachedObjects) => {
     const response = await Promise.all(arrayOfFetches);
     const data = await Promise.all(
-      response.map(async (object) => {
-        let objectJson = await object.json();
-        localStorage.setItem(objectJson.objectID, JSON.stringify(objectJson));
-        return objectJson;
-      })
+      response
+        .map(async (object) => {
+          let objectJson = await object.json();
+          localStorage.setItem(objectJson.objectID, JSON.stringify(objectJson));
+          return objectJson;
+        })
+        .filter(async (object) => 'objectID' in object) // Filter out badly formed data
     );
+
     const dataSorted = data.sort((a, b) => b.objectEndDate - a.objectEndDate);
 
     setSearchResultsEmpty(false);
