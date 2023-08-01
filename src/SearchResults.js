@@ -13,7 +13,11 @@ function SearchResults({
   const location = useLocation();
 
   useEffect(() => {
-    const doFetch = async () => {
+    doFetch();
+  }, [location]);
+
+  const doFetch = async () => {
+    try {
       if (!searchParams.get('q')) {
         setSearchResults([]);
         return;
@@ -47,32 +51,28 @@ function SearchResults({
         }
       });
 
-      try {
-        const response = await Promise.all(arrayOfFetches);
-        const data = await Promise.all(
-          response.map(async (object) => {
-            let objectJson = await object.json();
-            localStorage.setItem(
-              objectJson.objectID,
-              JSON.stringify(objectJson)
-            );
-            return objectJson;
-          })
-        );
-        const dataFlatSorted = data.sort(
-          (a, b) => b.objectEndDate - a.objectEndDate
-        );
+      await fetchData(arrayOfFetches, arrayOfCachedObjects);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-        setSearchResultsEmpty(false);
-        setSearchResults([...dataFlatSorted, ...arrayOfCachedObjects]);
-      } catch {
-        throw Error('Promise failed');
-      } finally {
-        setLoading(false);
-      }
-    };
-    doFetch();
-  }, [location]);
+  const fetchData = async (arrayOfFetches, arrayOfCachedObjects) => {
+    const response = await Promise.all(arrayOfFetches);
+    const data = await Promise.all(
+      response.map(async (object) => {
+        let objectJson = await object.json();
+        localStorage.setItem(objectJson.objectID, JSON.stringify(objectJson));
+        return objectJson;
+      })
+    );
+    const dataSorted = data.sort((a, b) => b.objectEndDate - a.objectEndDate);
+
+    setSearchResultsEmpty(false);
+    setSearchResults([...dataSorted, ...arrayOfCachedObjects]);
+  };
 
   const showResultsEmpty = () => {
     if (loading) return;
