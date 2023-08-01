@@ -52,7 +52,6 @@ function SearchResults({
         const data = await Promise.all(
           response.map(async (object) => {
             let objectJson = await object.json();
-            debugger;
             localStorage.setItem(
               objectJson.objectID,
               JSON.stringify(objectJson)
