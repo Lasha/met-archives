@@ -12,6 +12,10 @@ function SearchResults({
   const [searchParams, setSearchParams] = useSearchParams();
   const location = useLocation();
 
+  // Initialize pagination state
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
+
   useEffect(() => {
     doFetch();
   }, [location]);
@@ -29,17 +33,24 @@ function SearchResults({
       );
       const responseJson = await response.json();
 
-      const arrayOfFetches = [];
-      const arrayOfCachedObjects = [];
+      const itemsPerPage = 10; // Number of items to display per page
+      const start = (currentPage - 1) * itemsPerPage;
+      const end = start + itemsPerPage;
 
       if (responseJson.total === 0) {
         setLoading(false);
         setSearchResultsEmpty(true);
         setSearchResults([]);
+        setTotalPages(0);
         return;
       }
 
-      responseJson.objectIDs.splice(0, 50).map((objectID) => {
+      setTotalPages(Math.ceil(responseJson.total / itemsPerPage));
+
+      const arrayOfFetches = [];
+      const arrayOfCachedObjects = [];
+
+      responseJson.objectIDs.slice(start, end).forEach((objectID) => {
         if (localStorage.getItem(objectID)) {
           arrayOfCachedObjects.push(JSON.parse(localStorage.getItem(objectID)));
         } else {
