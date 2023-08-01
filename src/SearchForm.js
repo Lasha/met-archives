@@ -6,7 +6,7 @@ import {
   parseQueryString,
 } from './helpers';
 
-const SearchForm = ({ setSearchResultsEmpty, setLoading }) => {
+const SearchForm = ({ setSearchResultsEmpty, loading, setLoading }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [isOnView, setIsOnView] = useState('');
   const [hasImages, setHasImages] = useState('');
@@ -138,13 +138,14 @@ const SearchForm = ({ setSearchResultsEmpty, setLoading }) => {
           type="submit"
           value="Submit"
           className="submitButton"
-          disabled={formButtonsDisabled}
+          disabled={formButtonsDisabled || loading}
         />
         <input
           type="button"
           value="Reset"
           onClick={handleReset}
           className="resetButton"
+          disabled={loading}
         />
       </label>
     </form>
