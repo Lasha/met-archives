@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { useSearchParams, useNavigate } from 'react-router-dom';
+import { useSearchParams, useNavigate, useLocation } from 'react-router-dom';
 import {
   constructQueryString,
   fetchDepartments,
   parseQueryString,
 } from './helpers';
 
-const SearchForm = () => {
-  const [query, setQuery] = useState('');
+const SearchForm = ({ setSearchResultsEmpty, setLoading }) => {
+  const [searchTerm, setSearchTerm] = useState('');
   const [isOnView, setIsOnView] = useState('');
   const [hasImages, setHasImages] = useState('');
   const [departmentId, setDepartmentId] = useState('');
@@ -16,6 +16,9 @@ const SearchForm = () => {
 
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const formButtonsDisabled = !queryString || (queryString && !searchTerm);
 
   useEffect(() => {
     const loadDepartments = async () => {
@@ -25,31 +28,31 @@ const SearchForm = () => {
 
     // Set form fields based on URL parameters
     const params = parseQueryString();
-    if (params.q) setQuery(params.q);
+    if (params.q) setSearchTerm(params.q);
     if (params.isOnView) setIsOnView(params.isOnView);
     if (params.hasImages) setHasImages(params.hasImages);
     if (params.departmentId) setDepartmentId(params.departmentId);
 
     // Fetch list of departments to populate form dropdown
     loadDepartments();
-  }, []);
+  }, [location]);
 
   useEffect(() => {
     const newQueryString = constructQueryString(
-      query,
+      searchTerm,
       isOnView,
       hasImages,
       departmentId
     );
     setQueryString(newQueryString);
-    console.log(newQueryString);
-  }, [query, isOnView, hasImages, departmentId]);
+    console.log({ newQueryString });
+  }, [searchTerm, isOnView, hasImages, departmentId]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
     const newQueryString = constructQueryString(
-      query,
+      searchTerm,
       isOnView,
       hasImages,
       departmentId
@@ -58,33 +61,33 @@ const SearchForm = () => {
     // setQueryString(newQueryString);
     setSearchParams(newQueryString);
 
-    // Update browser URL
-    window.history.pushState({}, '', `/?${newQueryString}`);
-
-    console.log(newQueryString);
-
-    // Here you would usually send a request to the server
+    // Update browser URL to include query params
+    navigate(`/?${newQueryString}`);
   };
 
   const handleReset = () => {
-    setQuery('');
+    setSearchTerm('');
     setIsOnView('');
     setHasImages('');
     setDepartmentId('');
     setQueryString('');
+
+    setSearchResultsEmpty(false);
+    setLoading(false);
     // Clear URL query params
-    // window.history.pushState({}, '', '/');
     navigate('/');
   };
 
   return (
     <form onSubmit={handleSubmit} className="form">
       <label className="label">
-        Search Term:
+        <span>
+          Search Term: <span className="required">*</span>
+        </span>
         <input
           type="text"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
           className="input"
           placeholder="Word or phrase e.g. vacuums"
         />
@@ -136,14 +139,13 @@ const SearchForm = () => {
           type="submit"
           value="Submit"
           className="submitButton"
-          disabled={!queryString}
+          disabled={formButtonsDisabled}
         />
         <input
           type="button"
           value="Reset"
           onClick={handleReset}
           className="resetButton"
-          disabled={!queryString}
         />
       </label>
     </form>

@@ -1,11 +1,11 @@
 export const constructQueryString = (
-  query,
+  searchTerm,
   isOnView,
   hasImages,
   departmentId
 ) => {
   let params = new URLSearchParams();
-  if (query) params.append('q', query);
+  if (searchTerm) params.append('q', searchTerm);
   if (isOnView) params.append('isOnView', isOnView);
   if (hasImages) params.append('hasImages', hasImages);
   if (departmentId) params.append('departmentId', departmentId);
@@ -31,7 +31,7 @@ export const fetchDepartments = async () => {
   return data;
 };
 
-export function parseQueryString() {
+export const parseQueryString = () => {
   const urlParams = new URLSearchParams(window.location.search);
   let params = {};
 
@@ -40,4 +40,9 @@ export function parseQueryString() {
   }
 
   return params;
-}
+};
+
+export const clearAllLocalStorageCache = async () => {
+  debugger;
+  return await localStorage.clear();
+};

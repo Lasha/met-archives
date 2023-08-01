@@ -21,6 +21,8 @@ import './style.css';
 
 function App() {
   const [searchParams, setSearchParams] = useSearchParams();
+  const [searchResultsEmpty, setSearchResultsEmpty] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   return (
     <div className="container">
@@ -30,7 +32,11 @@ function App() {
       <div className="mainContent">
         <aside>
           <h3>What are you looking for?</h3>
-          <SearchForm />
+          <SearchForm
+            setSearchResultsEmpty={setSearchResultsEmpty}
+            loading={loading}
+            setLoading={setLoading}
+          />
         </aside>
 
         <main>
@@ -41,7 +47,12 @@ function App() {
               <>Search Results</>
             )}
           </h3>
-          <SearchResults />
+          <SearchResults
+            searchResultsEmpty={searchResultsEmpty}
+            setSearchResultsEmpty={setSearchResultsEmpty}
+            loading={loading}
+            setLoading={setLoading}
+          />
         </main>
       </div>
     </div>

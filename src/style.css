@@ -31,15 +31,19 @@ h3 {
 .container {
   font-family: 'Mulish', sans-serif;
   color: #333;
-  margin: 20px;
+  margin: 20px 20px 0;
 }
 
 .form {
-  margin-top: 30px;
+  margin-top: 2rem;
   display: flex;
   flex-direction: column;
   align-items: start;
   gap: 1rem;
+}
+
+.required {
+  color: #e4002b;
 }
 
 .label {
@@ -96,6 +100,12 @@ h3 {
 aside {
   width: 25%;
   max-width: 300px;
+  position: sticky;
+  top: 3rem;
+  height: calc(100vh - 3rem);
+  overflow: scroll;
+  padding-bottom: 3rem;
+  box-sizing: border-box;
 }
 
 main {
@@ -105,6 +115,10 @@ main {
 
 main h3 {
   color: #767676;
+}
+
+main h4 {
+  color: #333;
 }
 
 main ul,
@@ -136,10 +150,9 @@ article .learnMore {
   font-family: 'Mulish', sans-serif;
 }
 
-
 .resultsContainer {
-  height: 100%;
-  margin-top: 30px;
+  margin-top: 2rem;
+  margin-bottom: 4rem;
   display: flex;
   flex-direction: column;
   align-items: start;
@@ -161,4 +174,52 @@ article .learnMore {
 
 .resultsContainer .articleRight {
   margin-left: auto;
+}
+
+.resultsContainer h3 {
+  color: currentColor;
+}
+
+.resultsEmptyText {
+  color: #e4002b;
+}
+
+.resultsEmptyText a {
+  color: currentColor;
+}
+
+span.resultsEmptyText {
+  display: block;
+  margin-top: 10px;
+}
+
+.resultsLoader {
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #767676;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.clearCacheBtn {
+  display: inline-block;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  color: #fff;
+  background: #e4002b;
+  border: none;
+  margin-top: 1rem;
+  cursor: pointer;
+  font-family: 'Mulish', sans-serif;
 }
