@@ -38,6 +38,18 @@ h3 {
   margin: 20px 20px 0;
 }
 
+.container .headerLink {
+  color: #333;
+  text-decoration: none;
+}
+
+.container .headerLink:hover {
+  text-decoration-line: underline;
+  text-decoration-thickness: 3px;
+  text-decoration-color: #ccc;
+  color: #333;
+}
+
 .form {
   margin-top: 2rem;
   display: flex;

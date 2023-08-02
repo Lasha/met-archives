@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import SearchForm from './SearchForm';
 import SearchResults from './SearchResults';
 import { DEFAULT_PAGE_COUNT } from './constants';
-import { useSearchParams, useLocation } from 'react-router-dom';
+import { useSearchParams, useLocation, Link } from 'react-router-dom';
 import './style.css';
 
 // We're going to the Met!
@@ -32,7 +32,9 @@ function App() {
 
   return (
     <div className="container">
-      <h1>The Metropolitan Museum of Art</h1>
+      <Link to="/" className="headerLink">
+        <h1>The Metropolitan Museum of Art</h1>
+      </Link>
       <h2>Collection Archives</h2>
 
       <div className="mainContent">
