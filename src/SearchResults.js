@@ -96,6 +96,7 @@ function SearchResults({
   const clearLocalStorageCache = () => {
     clearAllLocalStorageCache();
     setClearedLocalStorage(true);
+
     setTimeout(() => {
       setClearedLocalStorage(false);
     }, 1000);

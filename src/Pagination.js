@@ -4,14 +4,17 @@ import './Pagination.css';
 function Pagination({ totalPages, currentPage, setCurrentPage, isCompact }) {
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
+    window.scrollTo(0, 0);
   };
 
   const handlePreviousPage = () => {
     setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
+    window.scrollTo(0, 0);
   };
 
   const handleNextPage = () => {
     setCurrentPage((prevPage) => Math.min(prevPage + 1, totalPages));
+    window.scrollTo(0, 0);
   };
 
   if (isCompact) {
