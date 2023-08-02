@@ -16,6 +16,7 @@ function SearchResults({
   // Initialize pagination state
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
+  const [itemsPerPage, setItemsPerPage] = useState(10);
 
   useEffect(() => {
     doFetch();
@@ -34,7 +35,7 @@ function SearchResults({
       );
       const responseJson = await response.json();
 
-      const itemsPerPage = 10; // Number of items to display per page
+      // const itemsPerPage = 10; // Number of items to display per page
       const start = (currentPage - 1) * itemsPerPage;
       const end = start + itemsPerPage;
 
