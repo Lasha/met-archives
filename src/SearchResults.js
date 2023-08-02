@@ -208,6 +208,7 @@ function SearchResults({
             currentPage={currentPage}
             setCurrentPage={setCurrentPage}
             totalPages={totalPages}
+            isBottomSticky={true}
           />
         ) : null}
       </section>

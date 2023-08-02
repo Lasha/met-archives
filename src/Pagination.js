@@ -1,7 +1,13 @@
 import React from 'react';
 import './Pagination.css';
 
-function Pagination({ totalPages, currentPage, setCurrentPage, isCompact }) {
+function Pagination({
+  totalPages,
+  currentPage,
+  setCurrentPage,
+  isCompact,
+  isBottomSticky,
+}) {
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
     window.scrollTo(0, 0);
@@ -42,7 +48,7 @@ function Pagination({ totalPages, currentPage, setCurrentPage, isCompact }) {
   );
 
   return (
-    <div className="pagination">
+    <div className={`pagination${isBottomSticky ? ' bottomSticky' : null}`}>
       <button onClick={handlePreviousPage} disabled={currentPage === 1}>
         Previous
       </button>

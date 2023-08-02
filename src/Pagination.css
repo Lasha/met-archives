@@ -5,9 +5,22 @@
   gap: 0.6rem;
 }
 
+.pagination.bottomSticky {
+  position: sticky;
+  bottom: 0;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.96) 20%
+  );
+  padding: 30px 20px 20px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
 .pagination button {
   background: none;
-  border: 1px solid #ccc;
+  border: 1px solid #333;
   padding: 0.25rem 0.75rem;
   cursor: pointer;
   transition: background-color 0.3s ease;
@@ -21,6 +34,11 @@
 .pagination button:disabled {
   color: #aaa;
   cursor: not-allowed;
+  border-color: #ccc;
+}
+
+.pagination button:disabled:hover {
+  color: #333;
 }
 
 .pagination button.active {
