@@ -119,6 +119,7 @@ main {
 
 main h3 {
   color: #767676;
+  flex: 1;
 }
 
 main h4 {
@@ -157,6 +158,7 @@ article .learnMore {
 .resultsheader {
   display: flex;
   justify-content: space-between;
+  gap: 1rem;
 }
 
 .resultsContainer {

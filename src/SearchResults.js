@@ -149,7 +149,7 @@ function SearchResults({
     <>
       <div className="resultsheader">
         {headerCode && headerCode()}{' '}
-        {!loading && searchResults.length ? (
+        {searchResults.length ? (
           <Pagination
             currentPage={currentPage}
             setCurrentPage={setCurrentPage}
@@ -162,7 +162,7 @@ function SearchResults({
       <section className="resultsContainer">
         {loading && <div className="resultsLoader"></div>}
 
-        {!loading && searchResults.length
+        {searchResults.length
           ? searchResults.map((result) => {
               return (
                 <article key={result.objectID}>
@@ -203,7 +203,7 @@ function SearchResults({
               );
             })
           : showResultsEmpty()}
-        {!loading && searchResults.length ? (
+        {searchResults.length ? (
           <Pagination
             currentPage={currentPage}
             setCurrentPage={setCurrentPage}
