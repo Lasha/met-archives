@@ -2,12 +2,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: 0.6rem;
 }
 
 .pagination button {
   background: none;
   border: 1px solid #ccc;
-  margin: 0 0.3rem;
   padding: 0.25rem 0.75rem;
   cursor: pointer;
   transition: background-color 0.3s ease;

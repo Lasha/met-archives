@@ -138,12 +138,14 @@ function SearchResults({
     <>
       <div className="resultsheader">
         {headerCode && headerCode()}{' '}
-        <Pagination
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-          totalPages={totalPages}
-          isCompact
-        />
+        {!loading && searchResults.length ? (
+          <Pagination
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+            totalPages={totalPages}
+            isCompact
+          />
+        ) : null}
       </div>
 
       <section className="resultsContainer">
@@ -190,11 +192,13 @@ function SearchResults({
               );
             })
           : showResultsEmpty()}
-        <Pagination
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-          totalPages={totalPages}
-        />
+        {!loading && searchResults.length ? (
+          <Pagination
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+            totalPages={totalPages}
+          />
+        ) : null}
       </section>
     </>
   );
