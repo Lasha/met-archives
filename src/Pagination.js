@@ -1,17 +1,7 @@
 import React from 'react';
 import './Pagination.css';
 
-function Pagination({ totalPages, currentPage, setCurrentPage }) {
-  const maxPagesToShow = 5;
-
-  // Calculate range of page numbers to display
-  const startPage = Math.max(1, currentPage - Math.floor(maxPagesToShow / 2));
-  const endPage = Math.min(totalPages, startPage + maxPagesToShow - 1);
-  const pageNumbers = Array.from(
-    { length: endPage - startPage + 1 },
-    (_, i) => startPage + i
-  );
-
+function Pagination({ totalPages, currentPage, setCurrentPage, isCompact }) {
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
@@ -23,6 +13,30 @@ function Pagination({ totalPages, currentPage, setCurrentPage }) {
   const handleNextPage = () => {
     setCurrentPage((prevPage) => Math.min(prevPage + 1, totalPages));
   };
+
+  if (isCompact) {
+    return (
+      <div className="pagination">
+        <button onClick={handlePreviousPage} disabled={currentPage === 1}>
+          Previous
+        </button>
+        <div>
+          Page {currentPage} of {totalPages}
+        </div>
+        <button onClick={handleNextPage} disabled={currentPage === totalPages}>
+          Next
+        </button>
+      </div>
+    );
+  }
+
+  const maxPagesToShow = 5;
+  const startPage = Math.max(1, currentPage - Math.floor(maxPagesToShow / 2));
+  const endPage = Math.min(totalPages, startPage + maxPagesToShow - 1);
+  const pageNumbers = Array.from(
+    { length: endPage - startPage + 1 },
+    (_, i) => startPage + i
+  );
 
   return (
     <div className="pagination">

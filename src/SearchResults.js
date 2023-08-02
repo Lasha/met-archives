@@ -139,6 +139,12 @@ function SearchResults({
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
         totalPages={totalPages}
+        isCompact
+      />
+      <Pagination
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+        totalPages={totalPages}
       />
 
       {loading && <div className="resultsLoader"></div>}
