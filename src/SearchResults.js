@@ -9,15 +9,16 @@ function SearchResults({
   loading,
   setLoading,
   headerCode,
+  currentPage,
+  setCurrentPage,
+  totalPages,
+  setTotalPages,
+  itemsPerPage,
+  setItemsPerPage,
 }) {
   const [searchResults, setSearchResults] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
   const location = useLocation();
-
-  // Initialize pagination state
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(0);
-  const [itemsPerPage, setItemsPerPage] = useState(10);
 
   const [clearedLocalStorage, setClearedLocalStorage] = useState(false);
 
@@ -47,6 +48,7 @@ function SearchResults({
         setSearchResultsEmpty(true);
         setSearchResults([]);
         setTotalPages(0);
+        setCurrentPage(1);
         return;
       }
 

@@ -6,7 +6,12 @@ import {
   parseQueryString,
 } from './helpers';
 
-const SearchForm = ({ setSearchResultsEmpty, loading, setLoading }) => {
+const SearchForm = ({
+  setSearchResultsEmpty,
+  loading,
+  setLoading,
+  setCurrentPage,
+}) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [isOnView, setIsOnView] = useState('');
   const [hasImages, setHasImages] = useState('');
@@ -60,6 +65,9 @@ const SearchForm = ({ setSearchResultsEmpty, loading, setLoading }) => {
     // setQueryString(newQueryString);
     setSearchParams(newQueryString);
 
+    // Reset to pagination to page 1 each time a new search is run
+    setCurrentPage(1);
+
     // Update browser URL to include query params
     navigate(`/?${newQueryString}`);
   };
@@ -70,6 +78,7 @@ const SearchForm = ({ setSearchResultsEmpty, loading, setLoading }) => {
     setHasImages('');
     setDepartmentId('');
     setQueryString('');
+    setCurrentPage(1);
 
     setSearchResultsEmpty(false);
     setLoading(false);

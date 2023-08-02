@@ -24,6 +24,11 @@ function App() {
   const [searchResultsEmpty, setSearchResultsEmpty] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  // Initialize pagination state
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
+  const [itemsPerPage, setItemsPerPage] = useState(10);
+
   return (
     <div className="container">
       <h1>The Metropolitan Museum of Art</h1>
@@ -36,6 +41,7 @@ function App() {
             setSearchResultsEmpty={setSearchResultsEmpty}
             loading={loading}
             setLoading={setLoading}
+            setCurrentPage={setCurrentPage}
           />
         </aside>
 
@@ -54,6 +60,12 @@ function App() {
                 )}
               </h3>
             )}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+            totalPages={totalPages}
+            setTotalPages={setTotalPages}
+            itemsPerPage={itemsPerPage}
+            setItemsPerPage={setItemsPerPage}
           />
         </main>
       </div>
