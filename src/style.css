@@ -189,6 +189,10 @@ article .learnMore {
   color: #e4002b;
 }
 
+.resultsEmptyText:hover {
+  color: #982932;
+}
+
 .resultsEmptyText a {
   color: currentColor;
 }
@@ -227,4 +231,8 @@ span.resultsEmptyText {
   margin-top: 1rem;
   cursor: pointer;
   font-family: 'Mulish', sans-serif;
+}
+
+.clearCacheBtn:hover {
+  background-color: #982932;
 }

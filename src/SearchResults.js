@@ -19,6 +19,8 @@ function SearchResults({
   const [totalPages, setTotalPages] = useState(0);
   const [itemsPerPage, setItemsPerPage] = useState(10);
 
+  const [clearedLocalStorage, setClearedLocalStorage] = useState(false);
+
   useEffect(() => {
     doFetch();
   }, [location, currentPage]);
@@ -91,6 +93,14 @@ function SearchResults({
     setSearchResults([...dataSorted, ...arrayOfCachedObjects]);
   };
 
+  const clearLocalStorageCache = () => {
+    clearAllLocalStorageCache();
+    setClearedLocalStorage(true);
+    setTimeout(() => {
+      setClearedLocalStorage(false);
+    }, 1000);
+  };
+
   const showResultsEmpty = () => {
     if (loading) return;
 
@@ -125,9 +135,9 @@ function SearchResults({
         <span className="resultsEmptyText">
           <button
             className="clearCacheBtn"
-            onClick={() => clearAllLocalStorageCache()}
+            onClick={() => clearLocalStorageCache()}
           >
-            Clear localSorage Cache
+            {clearedLocalStorage ? 'Done!' : 'Clear localSorage Cache'}
           </button>
         </span>
       </div>
