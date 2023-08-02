@@ -168,6 +168,11 @@ article .learnMore {
   font-family: 'Mulish', sans-serif;
 }
 
+article .learnMore:hover,
+article .learnMore:focus {
+  background-color: #982932;
+}
+
 .resultsheader {
   display: flex;
   justify-content: space-between;
