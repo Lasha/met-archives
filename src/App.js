@@ -40,18 +40,20 @@ function App() {
         </aside>
 
         <main>
-          <h3>
-            {searchParams.get('q') ? (
-              <span>Search Results For: {searchParams.get('q')}</span>
-            ) : (
-              <>Search Results</>
-            )}
-          </h3>
           <SearchResults
             searchResultsEmpty={searchResultsEmpty}
             setSearchResultsEmpty={setSearchResultsEmpty}
             loading={loading}
             setLoading={setLoading}
+            headerCode={() => (
+              <h3>
+                {searchParams.get('q') ? (
+                  <span>Search Results For: {searchParams.get('q')}</span>
+                ) : (
+                  <>Search Results</>
+                )}
+              </h3>
+            )}
           />
         </main>
       </div>

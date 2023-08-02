@@ -150,6 +150,11 @@ article .learnMore {
   font-family: 'Mulish', sans-serif;
 }
 
+.resultsheader {
+  display: flex;
+  justify-content: space-between;
+}
+
 .resultsContainer {
   margin-top: 2rem;
   margin-bottom: 4rem;

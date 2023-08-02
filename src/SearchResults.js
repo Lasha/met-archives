@@ -8,6 +8,7 @@ function SearchResults({
   setSearchResultsEmpty,
   loading,
   setLoading,
+  headerCode,
 }) {
   const [searchResults, setSearchResults] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
@@ -134,61 +135,68 @@ function SearchResults({
   };
 
   return (
-    <section className="resultsContainer">
-      <Pagination
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-        totalPages={totalPages}
-        isCompact
-      />
-      <Pagination
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-        totalPages={totalPages}
-      />
+    <>
+      <div className="resultsheader">
+        {headerCode && headerCode()}{' '}
+        <Pagination
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          totalPages={totalPages}
+          isCompact
+        />
+      </div>
 
-      {loading && <div className="resultsLoader"></div>}
+      <section className="resultsContainer">
+        {loading && <div className="resultsLoader"></div>}
 
-      {!loading && searchResults.length
-        ? searchResults.map((result) => {
-            return (
-              <article key={result.objectID}>
-                <div className="articleLeft">
-                  <h1>{result.title ? result.title : 'Untitled'}</h1>
-                  <ul>
-                    {result.creditLine && <li>Credit: {result.creditLine}</li>}
-                    {result.medium && <li>Medium: {result.medium}</li>}
-                    {result.GalleryNumber && (
-                      <li>Gallery: {result.GalleryNumber}</li>
+        {!loading && searchResults.length
+          ? searchResults.map((result) => {
+              return (
+                <article key={result.objectID}>
+                  <div className="articleLeft">
+                    <h1>{result.title ? result.title : 'Untitled'}</h1>
+                    <ul>
+                      {result.creditLine && (
+                        <li>Credit: {result.creditLine}</li>
+                      )}
+                      {result.medium && <li>Medium: {result.medium}</li>}
+                      {result.GalleryNumber && (
+                        <li>Gallery: {result.GalleryNumber}</li>
+                      )}
+                      {result.dimensions && (
+                        <li>Dimensions: {result.dimensions}</li>
+                      )}
+                    </ul>
+
+                    {result.objectURL && (
+                      <a
+                        className="learnMore"
+                        href={result.objectURL}
+                        target="_new"
+                        title={`Learn more about ${
+                          result.title ? result.title : 'Untitled'
+                        }`}
+                      >
+                        Learn More
+                      </a>
                     )}
-                    {result.dimensions && (
-                      <li>Dimensions: {result.dimensions}</li>
-                    )}
-                  </ul>
-
-                  {result.objectURL && (
-                    <a
-                      className="learnMore"
-                      href={result.objectURL}
-                      target="_new"
-                      title={`Learn more about ${
-                        result.title ? result.title : 'Untitled'
-                      }`}
-                    >
-                      Learn More
-                    </a>
-                  )}
-                </div>
-                {result.primaryImageSmall && (
-                  <div className="articleRight">
-                    {<img src={result.primaryImageSmall} />}
                   </div>
-                )}
-              </article>
-            );
-          })
-        : showResultsEmpty()}
-    </section>
+                  {result.primaryImageSmall && (
+                    <div className="articleRight">
+                      {<img src={result.primaryImageSmall} />}
+                    </div>
+                  )}
+                </article>
+              );
+            })
+          : showResultsEmpty()}
+        <Pagination
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          totalPages={totalPages}
+        />
+      </section>
+    </>
   );
 }
 
