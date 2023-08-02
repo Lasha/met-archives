@@ -99,6 +99,7 @@ h3 {
   display: flex;
   margin-top: 50px;
   gap: 30px;
+  max-width: 80rem;
 }
 
 aside {
@@ -175,12 +176,29 @@ article .learnMore {
   flex-direction: row;
   gap: 20px;
   width: 100%;
+  position: relative;
+}
+
+.resultsContainer article:hover::before,
+.resultsContainer article:focus-within::before {
+  content: '';
+  background-color: #f3f3f3;
+  position: absolute;
+  top: -1rem;
+  right: -1rem;
+  bottom: -1rem;
+  left: -1rem;
 }
 
 .resultsContainer img {
   height: 150px;
   width: 150px;
   object-fit: cover;
+}
+
+.resultsContainer .articleLeft,
+.resultsContainer .articleRight {
+  position: relative;
 }
 
 .resultsContainer .articleRight {
