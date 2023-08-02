@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSearchParams, useLocation, Link } from 'react-router-dom';
 import { clearAllLocalStorageCache } from './helpers';
 import Pagination from './Pagination';
+import { DEFAULT_PAGE_COUNT } from './constants';
 
 function SearchResults({
   searchResultsEmpty,
@@ -48,7 +49,7 @@ function SearchResults({
         setSearchResultsEmpty(true);
         setSearchResults([]);
         setTotalPages(0);
-        setCurrentPage(1);
+        setCurrentPage(DEFAULT_PAGE_COUNT);
         return;
       }
 

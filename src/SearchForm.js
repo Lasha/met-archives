@@ -5,6 +5,7 @@ import {
   fetchDepartments,
   parseQueryString,
 } from './helpers';
+import { DEFAULT_PAGE_COUNT } from './constants';
 
 const SearchForm = ({
   setSearchResultsEmpty,
@@ -66,7 +67,7 @@ const SearchForm = ({
     setSearchParams(newQueryString);
 
     // Reset to pagination to page 1 each time a new search is run
-    setCurrentPage(1);
+    setCurrentPage(DEFAULT_PAGE_COUNT);
 
     // Update browser URL to include query params
     navigate(`/?${newQueryString}`);
@@ -78,7 +79,7 @@ const SearchForm = ({
     setHasImages('');
     setDepartmentId('');
     setQueryString('');
-    setCurrentPage(1);
+    setCurrentPage(DEFAULT_PAGE_COUNT);
 
     setSearchResultsEmpty(false);
     setLoading(false);

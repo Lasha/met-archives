@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import SearchForm from './SearchForm';
 import SearchResults from './SearchResults';
+import { DEFAULT_PAGE_COUNT } from './constants';
 import { useSearchParams, useLocation } from 'react-router-dom';
 import './style.css';
 
@@ -25,7 +26,7 @@ function App() {
   const [loading, setLoading] = useState(false);
 
   // Initialize pagination state
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(DEFAULT_PAGE_COUNT);
   const [totalPages, setTotalPages] = useState(0);
   const [itemsPerPage, setItemsPerPage] = useState(10);
 
