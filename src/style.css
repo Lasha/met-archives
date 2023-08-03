@@ -232,6 +232,10 @@ article .learnMore:focus {
   object-fit: cover;
 }
 
+.resultsContainer img:hover {
+  object-fit: contain;
+}
+
 .resultsContainer .articleLeft,
 .resultsContainer .articleRight {
   position: relative;
