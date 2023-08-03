@@ -32,7 +32,7 @@ function App() {
 
   return (
     <div className="container">
-      <Link to="/" className="headerLink">
+      <Link to="/" state={{ clicked: 'logo' }} className="headerLink">
         <h1>The Metropolitan Museum of Art</h1>
       </Link>
       <h2>Collection Archives</h2>

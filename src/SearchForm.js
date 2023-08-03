@@ -32,6 +32,11 @@ const SearchForm = ({
       setDepartments(data.departments);
     };
 
+    if (location.search === '' && location.state?.clicked === 'logo') {
+      // When user navigates to "/" by clicking the logo, reset the form
+      handleReset();
+      return;
+    }
     // Set form fields based on URL parameters
     const params = parseQueryString();
     if (params.q) setSearchTerm(params.q);
@@ -83,8 +88,11 @@ const SearchForm = ({
 
     setSearchResultsEmpty(false);
     setLoading(false);
-    // Clear URL query params
-    navigate('/');
+
+    if (location.search !== '') {
+      // Clear URL query params
+      navigate('/');
+    }
   };
 
   return (
